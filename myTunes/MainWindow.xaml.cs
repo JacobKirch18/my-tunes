@@ -17,11 +17,18 @@ namespace myTunes
     public partial class MainWindow : Window
     {
         MusicRepo musicRepo = new MusicRepo();
+        private List<String> musicList = new List<String>();
         public MainWindow()
         {
             InitializeComponent();
 
-            songListBox.ItemsSource = musicRepo.Playlists;
+            musicList.Add("All Music");
+            foreach (var playlist in musicRepo.Playlists)
+            {
+                musicList.Add(playlist);
+            }
+            
+            songListBox.ItemsSource = musicList;
         }
 
         private void songListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

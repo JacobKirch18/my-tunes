@@ -19,9 +19,8 @@
                 <Image Source="images/info.png" />
             </Button>
         </ToolBar>
-        <ListBox x:Name="songListBox" Margin="10,35,652,10" SelectionChanged="songListBox_SelectionChanged">
-            
-        </ListBox>
+        <ListBox x:Name="songListBox" Margin="10,35,652,10" SelectionChanged="songListBox_SelectionChanged" />
+        <DataGrid Margin="172,35,22,32" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single"/>
 
     </Grid>
 </Window>
