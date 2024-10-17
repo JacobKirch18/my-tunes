@@ -16,10 +16,17 @@ namespace myTunes
     /// </summary>
     public partial class MainWindow : Window
     {
+        MusicRepo musicRepo = new MusicRepo();
         public MainWindow()
         {
             InitializeComponent();
+
+            songListBox.ItemsSource = musicRepo.Playlists;
         }
 
+        private void songListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
