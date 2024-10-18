@@ -6,20 +6,22 @@
 
 ## Description
 
-myTunes is a music player that allows the user to upload .mp3 files and
-organize their songs into playlists.
+myTunes is a music player that allows users to upload .mp3 files,
+listen to their music, and create playlists.
 
 ## Procrastionate Deadline Met on Time?
 
--
+- Yes
 
 ## Additional Requirements Implemented
 
 - 
 
 ## Contributions
-\*insert contributions\* by Ben Jones<br />
-\*insert contributions\* by Jacob Kirchner
+### Ben Jones
+- \*insert contributions\*
+### Jacob Kirchner
+- \*insert contributions\* 
 
 ## Percentage of Work
 
