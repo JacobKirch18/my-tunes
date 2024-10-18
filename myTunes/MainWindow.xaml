@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="800">
     <Grid>
-        <ToolBar Margin="0,0,0,400">
+        <ToolBar Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="800">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
             <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
                 <Image Source="images/addSong.png" />
@@ -19,10 +19,18 @@
                 <Image Source="images/info.png" />
             </Button>
         </ToolBar>
-        <ListBox x:Name="songListBox" Margin="10,35,620,10" SelectionChanged="songListBox_SelectionChanged" />
-        <DataGrid Margin="199,35,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" />
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="25" Margin="199,399,0,0" VerticalAlignment="Top" Width="100" />
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="25" Margin="313,399,0,0" VerticalAlignment="Top" Width="100" />
+        <ListBox x:Name="songListBox" Margin="10,35,0,0" SelectionChanged="songListBox_SelectionChanged" Height="389" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" />
+        <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="349" VerticalAlignment="Bottom" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding title}" Header="Title" />
+                <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
+                <DataGridTextColumn Binding="{Binding album}" Header="Album" />
+                <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" />
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="313,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" />
 
     </Grid>
 </Window>

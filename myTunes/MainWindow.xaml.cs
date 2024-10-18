@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,11 +30,23 @@ namespace myTunes
             }
             
             songListBox.ItemsSource = musicList;
+            songListBox.SelectedIndex = 0;
         }
 
         private void songListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var selectedPlaylist = songListBox.SelectedItem as String;
+            if (selectedPlaylist != null)
+            {
+                if (selectedPlaylist == "All Music")
+                {
+                    songDataGrid.ItemsSource = musicRepo.Songs.DefaultView;
+                }
+                else
+                {
+                    songDataGrid.ItemsSource = musicRepo.SongsForPlaylist(selectedPlaylist).DefaultView;
+                }
+            }
         }
 
         private void addSongButton_Click(object sender, RoutedEventArgs e)
