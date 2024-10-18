@@ -7,12 +7,7 @@
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="117*"/>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="656*"/>
-        </Grid.ColumnDefinitions>
-        <ToolBar Margin="0,0,0,404" Grid.ColumnSpan="3">
+        <ToolBar Margin="0,0,0,400">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
             <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
                 <Image Source="images/addSong.png" />
@@ -24,10 +19,10 @@
                 <Image Source="images/info.png" />
             </Button>
         </ToolBar>
-        <ListBox x:Name="songListBox" Margin="10,35,652,10" SelectionChanged="songListBox_SelectionChanged" Grid.ColumnSpan="3" />
-        <DataGrid Margin="28,35,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Grid.Column="2"/>
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="25" Margin="28,399,0,0" VerticalAlignment="Top" Width="102" Grid.Column="2"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="25" Margin="144,399,0,0" VerticalAlignment="Top" Width="102" Grid.Column="2"/>
+        <ListBox x:Name="songListBox" Margin="10,35,620,10" SelectionChanged="songListBox_SelectionChanged" />
+        <DataGrid Margin="199,35,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" />
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="25" Margin="199,399,0,0" VerticalAlignment="Top" Width="100" />
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="25" Margin="313,399,0,0" VerticalAlignment="Top" Width="100" />
 
     </Grid>
 </Window>
