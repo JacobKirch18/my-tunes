@@ -9,13 +9,13 @@
     <Grid>
         <ToolBar Margin="0,0,0,404">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
-            <Button x:Name="addSongButton" Click="addSongButton_Click">
+            <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
                 <Image Source="images/addSong.png" />
             </Button>
-            <Button x:Name="addPlaylistButton" Click="addPlaylistButton_Click">
+            <Button x:Name="addPlaylistButton" Click="addPlaylistButton_Click" ToolTip="New Playlist">
                 <Image Source="images/addPlaylist.png" />
             </Button>
-            <Button x:Name="aboutButton" Click="aboutButton_Click">
+            <Button x:Name="aboutButton" Click="aboutButton_Click" ToolTip="About">
                 <Image Source="images/info.png" />
             </Button>
         </ToolBar>
