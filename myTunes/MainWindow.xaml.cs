@@ -70,7 +70,8 @@ namespace myTunes
 
         private void addPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            NewPlaylistWindow newPlaylistWindow = new();
+            newPlaylistWindow.ShowDialog();
         }
         
         private void aboutButton_Click(object sender, RoutedEventArgs e)
