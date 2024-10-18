@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
-        Title="New Playlist" Height="191" Width="252" ResizeMode="NoResize" Icon="/garf.ico">
+        Title="New Playlist" Height="191" Width="252" ResizeMode="NoResize" Icon="/images/garf.ico">
 
     <Grid>
 
