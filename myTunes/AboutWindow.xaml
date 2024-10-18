@@ -5,9 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
-        Title="About" Height="298" Width="447">
+        Title="About" Height="445" Width="425">
+
+    <Window.Resources>
+        <!-- button styling from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/button-styles-and-templates?view=netframeworkdesktop-4.8-->
+        <ControlTemplate x:Key="buttonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="2" CornerRadius="10" BorderBrush="DarkOrange">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="OK" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="Black" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    
     <Grid>
-        <Button Content="OK" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center" Height="25" Width="100" Click="Button_Click"/>
-        <Label Content="By Ben Jones and Jacob Kirchner" HorizontalAlignment="Center" Height="auto" Margin="0,125,0,0" VerticalAlignment="Center" Width="auto" FontSize="14"/>
+        <Image Source="images/garf.png" Height="300" HorizontalAlignment="Center" VerticalAlignment="Top" Width="215" />
+        <Button Template="{StaticResource buttonTemplate}" Margin="0,325,0,0" Height="25" Width="100" Click="Button_Click"/>
+        <Label Content="By Ben Jones and Jacob Kirchner" HorizontalAlignment="Center" Height="auto" Margin="0,305,0,0" VerticalAlignment="Top" Width="auto" FontSize="16"/>
     </Grid>
 </Window>
