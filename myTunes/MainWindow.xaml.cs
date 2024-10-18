@@ -35,5 +35,21 @@ namespace myTunes
         {
 
         }
+
+        private void addSongButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+        private void aboutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
