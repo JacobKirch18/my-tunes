@@ -48,7 +48,8 @@ namespace myTunes
         
         private void aboutButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AboutWindow aboutWindow = new();
+            aboutWindow.ShowDialog();
         }
 
     }

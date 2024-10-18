@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="myTunes" Height="450" Width="800">
     <Grid>
-        <ToolBar Margin="0,0,0,404">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="656*"/>
+        </Grid.ColumnDefinitions>
+        <ToolBar Margin="0,0,0,404" Grid.ColumnSpan="3">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
             <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
                 <Image Source="images/addSong.png" />
@@ -19,10 +24,10 @@
                 <Image Source="images/info.png" />
             </Button>
         </ToolBar>
-        <ListBox x:Name="songListBox" Margin="10,35,652,10" SelectionChanged="songListBox_SelectionChanged" />
-        <DataGrid Margin="172,35,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single"/>
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="25" Margin="172,399,0,0" VerticalAlignment="Top" Width="102"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="25" Margin="288,399,0,0" VerticalAlignment="Top" Width="102"/>
+        <ListBox x:Name="songListBox" Margin="10,35,652,10" SelectionChanged="songListBox_SelectionChanged" Grid.ColumnSpan="3" />
+        <DataGrid Margin="28,35,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Grid.Column="2"/>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="25" Margin="28,399,0,0" VerticalAlignment="Top" Width="102" Grid.Column="2"/>
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="25" Margin="144,399,0,0" VerticalAlignment="Top" Width="102" Grid.Column="2"/>
 
     </Grid>
 </Window>
