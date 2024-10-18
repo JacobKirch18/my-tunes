@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
-        Title="myTunes" Height="450" Width="800">
+        Title="myTunes" Height="450" Width="800" Icon="/images/garf.ico">
     <Grid>
         <ToolBar Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="800">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->

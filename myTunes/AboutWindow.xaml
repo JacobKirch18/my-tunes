@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
-        Title="About" Height="445" Width="425">
+        Title="About" Height="445" Width="425" Icon="/images/garf.ico" ResizeMode="NoResize">
 
     <Window.Resources>
         <!-- button styling from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/button-styles-and-templates?view=netframeworkdesktop-4.8-->
