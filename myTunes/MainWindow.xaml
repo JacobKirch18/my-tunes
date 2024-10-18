@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="800" Icon="/images/garf.ico">
+    <Window.CommandBindings>
+        <CommandBinding Command="Play" Executed="PlayCommand_Executed" CanExecute="PlayCommand_CanExecute" />
+        <CommandBinding Command="Stop" Executed="StopCommand_Executed" CanExecute="StopCommand_CanExecute" />
+    </Window.CommandBindings>
     <Grid>
         <ToolBar Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="800">
             <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
@@ -21,6 +25,11 @@
         </ToolBar>
         <ListBox x:Name="songListBox" Margin="10,35,0,0" SelectionChanged="songListBox_SelectionChanged" Height="389" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" />
         <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="349" VerticalAlignment="Bottom" >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Remove" Click="DeleteSong_MenuItemClick" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding title}" Header="Title" />
@@ -29,8 +38,8 @@
                 <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" />
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="313,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" />
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="313,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />
 
     </Grid>
 </Window>

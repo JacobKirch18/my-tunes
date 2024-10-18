@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.Win32;
+using System.Data;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+// TO DO : "Play" inside Context Menu (should call play song method), and change Context Menu "Remove" to "Remove from Playlist" if a playlist is selected
+
 namespace myTunes
 {
     /// <summary>
@@ -19,9 +22,14 @@ namespace myTunes
     {
         MusicRepo musicRepo = new MusicRepo();
         private List<String> musicList = new List<String>();
+        private MediaPlayer mediaPlayer;
+
+        private bool isPlaying = false; // For disabling stop button
         public MainWindow()
         {
             InitializeComponent();
+
+            mediaPlayer = new MediaPlayer();
 
             musicList.Add("All Music");
             foreach (var playlist in musicRepo.Playlists)
@@ -51,18 +59,81 @@ namespace myTunes
 
         private void addSongButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            // FileDialog filter from https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.filter?view=windowsdesktop-8.0
+            openFileDialog1.Filter = "Music files (*.mp3;*.mp4;*.wma;*.wav)|*.mp3;*.mp4;*.wma;*.wav|All files|*.*";
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                musicRepo.AddSong(openFileDialog1.FileName);
+            }
         }
 
         private void addPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
         
         private void aboutButton_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aboutWindow = new();
             aboutWindow.ShowDialog();
+        }
+
+        private void DeleteSong_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (songDataGrid.SelectedItem != null)
+            {
+                // Got this method of acquiring song Id from https://www.syncfusion.com/forums/160649/get-the-value-from-the-first-column-of-a-selected-row 
+                var selectedItem = songDataGrid.SelectedItems[0];
+                var dataRow = (selectedItem as DataRowView).Row;
+                int songId = (int)dataRow["Id"];
+                musicRepo.DeleteSong(songId);
+            }
+        }
+        private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedItem = songDataGrid.SelectedItems[0];
+            var dataRow = (selectedItem as DataRowView).Row;
+            int songId = (int)dataRow["Id"];
+            Song? s = musicRepo.GetSong(songId);
+            if (s != null)
+            {
+                if (s.Filename != null)
+                {
+                    mediaPlayer.Open(new Uri(s.Filename));
+                    mediaPlayer.Play();
+                    isPlaying = true;
+                }
+            }
+        }
+
+        private void PlayCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (songDataGrid.SelectedItem == null)
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
+            }
+        }
+        private void StopCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+            isPlaying = false;
+        }
+
+        private void StopCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (isPlaying)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
         }
 
     }
