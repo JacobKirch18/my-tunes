@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="About" Height="298" Width="447">
     <Grid>
-        <Button Content="OK" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Center" Height="25" Width="100" Click="Button_Click"/>
+        <Button Content="OK" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center" Height="25" Width="100" Click="Button_Click"/>
+        <Label Content="By Ben Jones and Jacob Kirchner" HorizontalAlignment="Center" Height="auto" Margin="0,125,0,0" VerticalAlignment="Center" Width="auto" FontSize="14"/>
     </Grid>
 </Window>
