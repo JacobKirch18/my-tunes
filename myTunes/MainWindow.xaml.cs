@@ -66,6 +66,9 @@ namespace myTunes
             if (openFileDialog1.ShowDialog() == true)
             {
                 musicRepo.AddSong(openFileDialog1.FileName);
+                songDataGrid.Focus();
+                songDataGrid.SelectedItem = songDataGrid.Items[songDataGrid.Items.Count - 1];
+                songDataGrid.ScrollIntoView(songDataGrid.SelectedItem);
             }
         }
 
