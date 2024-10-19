@@ -24,12 +24,7 @@
             </Button>
         </ToolBar>
         <ListBox x:Name="songListBox" Margin="10,35,0,0" SelectionChanged="songListBox_SelectionChanged" Height="389" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" />
-        <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="349" VerticalAlignment="Bottom" >
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Remove" Click="DeleteSong_MenuItemClick" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+        <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="349" VerticalAlignment="Bottom" LayoutUpdated="songDataGrid_LayoutUpdated" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding title}" Header="Title" />

@@ -98,6 +98,27 @@ namespace myTunes
             aboutWindow.ShowDialog();
         }
 
+        private void PlaySong_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = songDataGrid.SelectedItems[0];
+            var data = selectedItem as DataRowView;
+            if (data != null)
+            {
+                var dataRow = data.Row;
+                int songId = (int)dataRow["Id"];
+                Song? s = musicRepo.GetSong(songId);
+                if (s != null)
+                {
+                    if (s.Filename != null)
+                    {
+                        mediaPlayer.Open(new Uri(s.Filename));
+                        mediaPlayer.Play();
+                        isPlaying = true;
+                    }
+                }
+            }
+        }
+
         private void DeleteSong_MenuItemClick(object sender, RoutedEventArgs e)
         {
             if (songDataGrid.SelectedItem != null)
@@ -112,6 +133,30 @@ namespace myTunes
                     musicRepo.DeleteSong(songId);
                 }
             }
+        }
+
+        private void DeleteSongFromPlaylist_MenuItemClick(Object sender, RoutedEventArgs e)
+        { // Error retrieving and casting songId for some reason? -- will fix this later
+            /*if (songDataGrid.SelectedItem != null)
+            {
+                // Got this method of acquiring song Id from https://www.syncfusion.com/forums/160649/get-the-value-from-the-first-column-of-a-selected-row 
+                var selectedItem = songDataGrid.SelectedItems[0];
+                var data = selectedItem as DataRowView;
+                if (data != null)
+                {
+                    var selectedPlaylist = songListBox.SelectedItem as String;
+                    if (selectedPlaylist != null)
+                    {
+                        var dataRow = data.Row;
+                        Console.WriteLine("HERE IS THE ID ", dataRow["Id"]);
+                        Console.WriteLine("HERE IS THE POSITION ", dataRow["Position"]);
+
+                        //int songId = (int)dataRow["id"];
+                        //int songPos = (int)dataRow["position"];
+                        //musicRepo.RemoveSongFromPlaylist(songPos, songId, selectedPlaylist);
+                    }
+                }
+            }*/
         }
         private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -163,5 +208,39 @@ namespace myTunes
             }
         }
 
+        // Creates a Context Menu when songDataGrid loads
+        // Got most information from 
+        // https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/contextmenu-overview?view=netframeworkdesktop-4.8 
+        private void songDataGrid_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (songListBox.SelectedItem == null)
+            {
+                return;
+            }
+
+            var contextMenu = new ContextMenu();
+            songDataGrid.ContextMenu = contextMenu;
+            var miPlay = new MenuItem();
+            miPlay.Header = "Play";
+            miPlay.Click += PlaySong_MenuItemClick;
+            contextMenu.Items.Add(miPlay);
+
+            var selectedPlaylist = songListBox.SelectedItem as String;
+
+            if (selectedPlaylist == "All Music")
+            {
+                var miRemove = new MenuItem();
+                miRemove.Header = "Remove";
+                miRemove.Click += DeleteSong_MenuItemClick;
+                contextMenu.Items.Add(miRemove);
+            }
+            else
+            {
+                var miRemoveFromPlaylist = new MenuItem();
+                miRemoveFromPlaylist.Header = "Remove from Playlst";
+                miRemoveFromPlaylist.Click += DeleteSongFromPlaylist_MenuItemClick;
+                contextMenu.Items.Add(miRemoveFromPlaylist);
+            }
+        }
     }
 }
