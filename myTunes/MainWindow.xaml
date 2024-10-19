@@ -11,30 +11,41 @@
         <CommandBinding Command="Stop" Executed="StopCommand_Executed" CanExecute="StopCommand_CanExecute" />
     </Window.CommandBindings>
     <Grid>
-        <ToolBar Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="800">
-            <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
-            <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
-                <Image Source="images/addSong.png" />
-            </Button>
-            <Button x:Name="addPlaylistButton" Click="addPlaylistButton_Click" ToolTip="New Playlist">
-                <Image Source="images/addPlaylist.png" />
-            </Button>
-            <Button x:Name="aboutButton" Click="aboutButton_Click" ToolTip="About">
-                <Image Source="images/info.png" />
-            </Button>
-        </ToolBar>
-        <ListBox x:Name="songListBox" Margin="10,35,0,0" SelectionChanged="songListBox_SelectionChanged" Height="389" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" />
-        <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,50" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="349" VerticalAlignment="Bottom" LayoutUpdated="songDataGrid_LayoutUpdated" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding title}" Header="Title" />
-                <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
-                <DataGridTextColumn Binding="{Binding album}" Header="Album" />
-                <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="313,0,0,10" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />
+        <StackPanel>
+            <Viewbox Stretch="Uniform">
+                <Grid>
+                    <ToolBar Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="800">
+                        <!-- buttons with images from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-create-a-button-that-has-an-image?view=netframeworkdesktop-4.8 -->
+                        <Button x:Name="addSongButton" Click="addSongButton_Click" ToolTip="New Song">
+                            <Image Source="images/addSong.png" />
+                        </Button>
+                        <Button x:Name="addPlaylistButton" Click="addPlaylistButton_Click" ToolTip="New Playlist">
+                            <Image Source="images/addPlaylist.png" />
+                        </Button>
+                        <Button x:Name="aboutButton" Click="aboutButton_Click" ToolTip="About">
+                            <Image Source="images/info.png" />
+                        </Button>
+                    </ToolBar>
+                </Grid>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform">
+                <Grid Width="782" Height="409">
+                    <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" />
+                    <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,76" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="323" VerticalAlignment="Bottom" LayoutUpdated="songDataGrid_LayoutUpdated" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
+                            <DataGridTextColumn Binding="{Binding title}" Header="Title" />
+                            <DataGridTextColumn Binding="{Binding artist}" Header="Artist" />
+                            <DataGridTextColumn Binding="{Binding album}" Header="Album" />
+                            <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
+                    <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="310,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />
+                </Grid>
+            </Viewbox>
+        </StackPanel>
 
     </Grid>
 </Window>
