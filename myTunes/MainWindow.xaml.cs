@@ -148,6 +148,16 @@ namespace myTunes
             }
         }
 
+
+        // Copilot said this about DeleteSongFromPlaylist_MenuItemClick, but I didn't take the time to look at the function
+        /*
+        Since the code is commented out, it is not currently causing any issues. However, if you uncomment this code and try to execute it, you may encounter problems with retrieving the songId and selectedPlaylist values.
+        To fix this issue, you can try the following steps:
+        1.	Ensure that the songDataGrid and songListBox controls are properly bound to their respective data sources.
+        2.	Verify that the DataRowView object obtained from the songDataGrid.SelectedItems collection contains the expected data.
+        3.	Check if the column names used to access the songId and selectedPlaylist values ("Id" and "Position", respectively) match the actual column names in the data source.
+        4.	Confirm that the musicRepo.RemoveSongFromPlaylist method is implemented correctly and can handle the provided parameters.
+        */
         private void DeleteSongFromPlaylist_MenuItemClick(Object sender, RoutedEventArgs e)
         { // Error retrieving and casting songId for some reason? -- will fix this later
             /*if (songDataGrid.SelectedItem != null)
@@ -170,8 +180,9 @@ namespace myTunes
                     }
                 }
             }*/
-        }
-        private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+    }
+
+    private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItem = songDataGrid.SelectedItems[0];
             var data = selectedItem as DataRowView;
