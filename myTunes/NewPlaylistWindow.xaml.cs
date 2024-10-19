@@ -19,6 +19,8 @@ namespace myTunes
     /// </summary>
     public partial class NewPlaylistWindow : Window
     {
+        public string? PlaylistName { get; private set; }
+
         public NewPlaylistWindow()
         {
             InitializeComponent();
@@ -26,7 +28,8 @@ namespace myTunes
 
         private void createButton_Click(object sender, RoutedEventArgs e)
         {
-
+            PlaylistName = playlistNameTextBox.Text;
+            this.DialogResult = true;
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)

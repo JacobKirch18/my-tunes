@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace myTunes
     public partial class MainWindow : Window
     {
         MusicRepo musicRepo = new MusicRepo();
-        private List<String> musicList = new List<String>();
+        private ObservableCollection<String> musicList = new ObservableCollection<String>();
         private MediaPlayer mediaPlayer;
 
         private bool isPlaying = false; // For disabling stop button
@@ -71,7 +72,24 @@ namespace myTunes
         private void addPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             NewPlaylistWindow newPlaylistWindow = new();
-            newPlaylistWindow.ShowDialog();
+            var result = newPlaylistWindow.ShowDialog();
+            if (result == true)
+            {
+                string? playListName = newPlaylistWindow.PlaylistName;
+                if (playListName != null)
+                {
+                    bool nameIsValid = musicRepo.AddPlaylist(playListName);
+                    if (nameIsValid)
+                    {
+                        musicList.Add(playListName);
+                        songListBox.ItemsSource = musicList;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Playlist name already exists", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
         
         private void aboutButton_Click(object sender, RoutedEventArgs e)
