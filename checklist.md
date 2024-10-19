@@ -27,8 +27,8 @@ from the grid control and dropping them onto the desired playlist in the list bo
 Each song that is dropped onto a playlist should be added to the end of the playlist.  
 When viewing a playlist, the songs should be presented in order of position.  
 
-~~Songs can be removed from the list of All Music by right-clicking the song and selecting “Remove” from the context menu.~~
-A dialog box should confirm the removal.  A song can be removed from a playlist by viewing the songs in the playlist, 
+~~Songs can be removed from the list of All Music by right-clicking the song and selecting “Remove” from the context menu.
+A dialog box should confirm the removal.~~ A song can be removed from a playlist by viewing the songs in the playlist, 
 right-clicking the song, and selecting “Remove from Playlist” from the context menu.  No dialog box is necessary.  
 Note that the ordering of the songs in a playlist should be updated to reflect the removal of a song so if song at 
 position 2 was removed, the 3rd song is now position 2, the 4th is position 3, and so on.
@@ -38,7 +38,7 @@ This file should reside in the same folder as the app’s .exe.
 The file should be loaded when the app is first executed and saved when the app terminates.  
 (Ideally the file should be saved whenever a change is made to a playlist, but you should only save it once when the app terminates.)
 
-The main window should be resizable, and the contents should stretch/shrink to fit the size of the window.
+~~The main window should be resizable, and the contents should stretch/shrink to fit the size of the window.~~
 
 ~~An about dialog box (not a simple MessageBox) should identify the programmers.~~
 
