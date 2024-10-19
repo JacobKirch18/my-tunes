@@ -104,24 +104,32 @@ namespace myTunes
             {
                 // Got this method of acquiring song Id from https://www.syncfusion.com/forums/160649/get-the-value-from-the-first-column-of-a-selected-row 
                 var selectedItem = songDataGrid.SelectedItems[0];
-                var dataRow = (selectedItem as DataRowView).Row;
-                int songId = (int)dataRow["Id"];
-                musicRepo.DeleteSong(songId);
+                var data = selectedItem as DataRowView;
+                if (data != null)
+                {
+                    var dataRow = data.Row;
+                    int songId = (int)dataRow["Id"];
+                    musicRepo.DeleteSong(songId);
+                }
             }
         }
         private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItem = songDataGrid.SelectedItems[0];
-            var dataRow = (selectedItem as DataRowView).Row;
-            int songId = (int)dataRow["Id"];
-            Song? s = musicRepo.GetSong(songId);
-            if (s != null)
+            var data = selectedItem as DataRowView;
+            if (data != null)
             {
-                if (s.Filename != null)
+                var dataRow = data.Row;
+                int songId = (int)dataRow["Id"];
+                Song? s = musicRepo.GetSong(songId);
+                if (s != null)
                 {
-                    mediaPlayer.Open(new Uri(s.Filename));
-                    mediaPlayer.Play();
-                    isPlaying = true;
+                    if (s.Filename != null)
+                    {
+                        mediaPlayer.Open(new Uri(s.Filename));
+                        mediaPlayer.Play();
+                        isPlaying = true;
+                    }
                 }
             }
         }
