@@ -79,6 +79,12 @@ namespace myTunes
             if (result == true)
             {
                 string? playListName = newPlaylistWindow.PlaylistName;
+                // asked GitHub Copilot "How to test for empty string along with space characters"
+                if (string.IsNullOrWhiteSpace(playListName))
+                {
+                    MessageBox.Show("Playlist name cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (playListName != null)
                 {
                     bool nameIsValid = musicRepo.AddPlaylist(playListName);
