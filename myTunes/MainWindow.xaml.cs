@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-// TO DO : "Play" inside Context Menu (should call play song method), and change Context Menu "Remove" to "Remove from Playlist" if a playlist is selected
 
 namespace myTunes
 {
@@ -47,14 +46,8 @@ namespace myTunes
             var selectedPlaylist = songListBox.SelectedItem as String;
             if (selectedPlaylist != null)
             {
-                if (selectedPlaylist == "All Music")
-                {
-                    songDataGrid.ItemsSource = musicRepo.Songs.DefaultView;
-                }
-                else
-                {
-                    songDataGrid.ItemsSource = musicRepo.SongsForPlaylist(selectedPlaylist).DefaultView;
-                }
+                // C+P'd code to this method, so deleting songs can update the dataGrid too
+                ReloadDataGrid(selectedPlaylist); 
             }
         }
 
@@ -148,19 +141,9 @@ namespace myTunes
             }
         }
 
-
-        // Copilot said this about DeleteSongFromPlaylist_MenuItemClick, but I didn't take the time to look at the function
-        /*
-        Since the code is commented out, it is not currently causing any issues. However, if you uncomment this code and try to execute it, you may encounter problems with retrieving the songId and selectedPlaylist values.
-        To fix this issue, you can try the following steps:
-        1.	Ensure that the songDataGrid and songListBox controls are properly bound to their respective data sources.
-        2.	Verify that the DataRowView object obtained from the songDataGrid.SelectedItems collection contains the expected data.
-        3.	Check if the column names used to access the songId and selectedPlaylist values ("Id" and "Position", respectively) match the actual column names in the data source.
-        4.	Confirm that the musicRepo.RemoveSongFromPlaylist method is implemented correctly and can handle the provided parameters.
-        */
         private void DeleteSongFromPlaylist_MenuItemClick(Object sender, RoutedEventArgs e)
-        { // Error retrieving and casting songId for some reason? -- will fix this later
-            /*if (songDataGrid.SelectedItem != null)
+        { 
+            if (songDataGrid.SelectedItem != null)
             {
                 // Got this method of acquiring song Id from https://www.syncfusion.com/forums/160649/get-the-value-from-the-first-column-of-a-selected-row 
                 var selectedItem = songDataGrid.SelectedItems[0];
@@ -171,16 +154,16 @@ namespace myTunes
                     if (selectedPlaylist != null)
                     {
                         var dataRow = data.Row;
-                        Console.WriteLine("HERE IS THE ID ", dataRow["Id"]);
-                        Console.WriteLine("HERE IS THE POSITION ", dataRow["Position"]);
 
-                        //int songId = (int)dataRow["id"];
-                        //int songPos = (int)dataRow["position"];
-                        //musicRepo.RemoveSongFromPlaylist(songPos, songId, selectedPlaylist);
+                        int songId = Convert.ToInt32(dataRow["id"]);
+                        int songPos = Convert.ToInt32(dataRow["position"]);
+                        musicRepo.RemoveSongFromPlaylist(songPos, songId, selectedPlaylist);
+                        songListBox.SelectedItem = songListBox.SelectedItem; 
+                        ReloadDataGrid(selectedPlaylist);
                     }
                 }
-            }*/
-    }
+            }
+        }
 
     private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -189,7 +172,7 @@ namespace myTunes
             if (data != null)
             {
                 var dataRow = data.Row;
-                int songId = (int)dataRow["Id"];
+                int songId = Convert.ToInt32(dataRow["Id"]);
                 Song? s = musicRepo.GetSong(songId);
                 if (s != null)
                 {
@@ -264,6 +247,24 @@ namespace myTunes
                 miRemoveFromPlaylist.Header = "Remove from Playlst";
                 miRemoveFromPlaylist.Click += DeleteSongFromPlaylist_MenuItemClick;
                 contextMenu.Items.Add(miRemoveFromPlaylist);
+            }
+        }
+
+        private void ReloadDataGrid(string selectedPlaylist)
+        {
+            if (selectedPlaylist != null)
+            {
+                if (selectedPlaylist == "All Music")
+                {
+                    songDataGrid.ItemsSource = musicRepo.Songs.DefaultView;
+                    // Asked ChatGPT "I have my dataGrid, but I want it to load sorted by a column automatically how do I do that"
+                    // Responded with collection view, but I implemented it slightly differently by applying to the Items directly, haven't found anything wrong with it so far
+                    songDataGrid.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Title", System.ComponentModel.ListSortDirection.Ascending));
+                }
+                else
+                {
+                    songDataGrid.ItemsSource = musicRepo.SongsForPlaylist(selectedPlaylist).DefaultView;
+                }
             }
         }
     }
