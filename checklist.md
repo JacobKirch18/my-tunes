@@ -33,17 +33,14 @@ right-clicking the song, and selecting “Remove from Playlist” from the conte
 Note that the ordering of the songs in a playlist should be updated to reflect the removal of a song so if song at 
 position 2 was removed, the 3rd song is now position 2, the 4th is position 3, and so on.~~
 
-The list of all song files and playlists should be stored in a file called music.xml. 
+~~The list of all song files and playlists should be stored in a file called music.xml. 
 This file should reside in the same folder as the app’s .exe. 
 The file should be loaded when the app is first executed and saved when the app terminates.  
-(Ideally the file should be saved whenever a change is made to a playlist, but you should only save it once when the app terminates.)
+(Ideally the file should be saved whenever a change is made to a playlist, but you should only save it once when the app terminates.)~~
 
 ~~The main window should be resizable, and the contents should stretch/shrink to fit the size of the window.~~
 
 ~~An about dialog box (not a simple MessageBox) should identify the programmers.~~
-
-The app should use the given MusicRepo class to perform all ADO.NET operations. 
-The MusicRepo class uses the given music.xml and music.xsd files.
 
 # Additional Reqs
 Add the ability to rename and delete a playlist.  The user should be able to right-click a playlist 
