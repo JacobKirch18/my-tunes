@@ -23,6 +23,8 @@ namespace myTunes
         MusicRepo musicRepo = new MusicRepo();
         private ObservableCollection<String> musicList = new ObservableCollection<String>();
         private MediaPlayer mediaPlayer;
+        // Got the following code from ChatGPT asking how to sort a DataGrid
+        System.ComponentModel.SortDescription sorting = new System.ComponentModel.SortDescription("Title", System.ComponentModel.ListSortDirection.Ascending);
 
         private bool isPlaying = false; // For disabling stop button
 
@@ -42,7 +44,7 @@ namespace myTunes
             songListBox.SelectedIndex = 0;
 
             this.Closed += MainWindow_FormClosed;
-
+            songDataGrid.Items.SortDescriptions.Add(sorting);
         }
 
         private void MainWindow_FormClosed(object? sender, EventArgs e)
@@ -62,6 +64,7 @@ namespace myTunes
 
         private void addSongButton_Click(object sender, RoutedEventArgs e)
         {
+            songDataGrid.Items.SortDescriptions.Remove(sorting);
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             // FileDialog filter from https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.filter?view=windowsdesktop-8.0
             openFileDialog1.Filter = "Music files (*.mp3;*.mp4;*.wma;*.wav)|*.mp3;*.mp4;*.wma;*.wav|All files|*.*";
