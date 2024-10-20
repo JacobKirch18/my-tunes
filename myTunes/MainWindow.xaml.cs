@@ -25,6 +25,7 @@ namespace myTunes
         private MediaPlayer mediaPlayer;
 
         private bool isPlaying = false; // For disabling stop button
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,9 +37,17 @@ namespace myTunes
             {
                 musicList.Add(playlist);
             }
-            
+
             songListBox.ItemsSource = musicList;
             songListBox.SelectedIndex = 0;
+
+            this.Closed += MainWindow_FormClosed;
+
+        }
+
+        private void MainWindow_FormClosed(object? sender, EventArgs e)
+        {
+            musicRepo.Save();
         }
 
         private void songListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,7 +56,7 @@ namespace myTunes
             if (selectedPlaylist != null)
             {
                 // C+P'd code to this method, so deleting songs can update the dataGrid too
-                ReloadDataGrid(selectedPlaylist); 
+                ReloadDataGrid(selectedPlaylist);
             }
         }
 
@@ -93,7 +102,7 @@ namespace myTunes
                 }
             }
         }
-        
+
         private void aboutButton_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aboutWindow = new();
@@ -132,7 +141,9 @@ namespace myTunes
                 {
                     var dataRow = data.Row;
                     int songId = (int)dataRow["Id"];
-                    MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete \"{dataRow["Title"].ToString()}\"?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete" +
+                        $" \"{dataRow["Title"].ToString()}\"?", "Confirmation",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         musicRepo.DeleteSong(songId);
@@ -142,7 +153,7 @@ namespace myTunes
         }
 
         private void DeleteSongFromPlaylist_MenuItemClick(Object sender, RoutedEventArgs e)
-        { 
+        {
             if (songDataGrid.SelectedItem != null)
             {
                 // Got this method of acquiring song Id from https://www.syncfusion.com/forums/160649/get-the-value-from-the-first-column-of-a-selected-row 
@@ -158,14 +169,14 @@ namespace myTunes
                         int songId = Convert.ToInt32(dataRow["id"]);
                         int songPos = Convert.ToInt32(dataRow["position"]);
                         musicRepo.RemoveSongFromPlaylist(songPos, songId, selectedPlaylist);
-                        songListBox.SelectedItem = songListBox.SelectedItem; 
+                        songListBox.SelectedItem = songListBox.SelectedItem;
                         ReloadDataGrid(selectedPlaylist);
                     }
                 }
             }
         }
 
-    private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var selectedItem = songDataGrid.SelectedItems[0];
             var data = selectedItem as DataRowView;
@@ -244,7 +255,7 @@ namespace myTunes
             else
             {
                 var miRemoveFromPlaylist = new MenuItem();
-                miRemoveFromPlaylist.Header = "Remove from Playlst";
+                miRemoveFromPlaylist.Header = "Remove from Playlist";
                 miRemoveFromPlaylist.Click += DeleteSongFromPlaylist_MenuItemClick;
                 contextMenu.Items.Add(miRemoveFromPlaylist);
             }
@@ -257,9 +268,6 @@ namespace myTunes
                 if (selectedPlaylist == "All Music")
                 {
                     songDataGrid.ItemsSource = musicRepo.Songs.DefaultView;
-                    // Asked ChatGPT "I have my dataGrid, but I want it to load sorted by a column automatically how do I do that"
-                    // Responded with collection view, but I implemented it slightly differently by applying to the Items directly, haven't found anything wrong with it so far
-                    songDataGrid.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Title", System.ComponentModel.ListSortDirection.Ascending));
                 }
                 else
                 {
