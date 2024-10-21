@@ -43,10 +43,10 @@ The file should be loaded when the app is first executed and saved when the app 
 ~~An about dialog box (not a simple MessageBox) should identify the programmers.~~
 
 # Additional Reqs
-Add the ability to rename and delete a playlist.  The user should be able to right-click a playlist 
+~~Add the ability to rename and delete a playlist.  The user should be able to right-click a playlist 
 and select "Rename" from the context menu.  Then a dialog box should display which allows the user to rename the playlist. 
 Make sure you only change the playlist name if the user supplies a valid playlist (no blanks or identically named playlists). 
-A "Delete" option should also be available from the context menu that deletes the playlist.
+A "Delete" option should also be available from the context menu that deletes the playlist.~~
 
 Use a control template or styles with at least one trigger to alter the look and behavior of the Play and Stop buttons. 
 Also add Play and Stop commands (from MediaCommands class) to the buttons so the Play
