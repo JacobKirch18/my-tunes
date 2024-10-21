@@ -83,19 +83,19 @@ namespace myTunes
             var result = newPlaylistWindow.ShowDialog();
             if (result == true)
             {
-                string? playListName = newPlaylistWindow.PlaylistName;
+                string? playlistName = newPlaylistWindow.PlaylistName;
                 // asked GitHub Copilot "How to test for empty string along with space characters"
-                if (string.IsNullOrWhiteSpace(playListName))
+                if (string.IsNullOrWhiteSpace(playlistName))
                 {
                     MessageBox.Show("Playlist name cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                if (playListName != null)
+                if (playlistName != null)
                 {
-                    bool nameIsValid = musicRepo.AddPlaylist(playListName);
+                    bool nameIsValid = musicRepo.AddPlaylist(playlistName);
                     if (nameIsValid)
                     {
-                        musicList.Add(playListName);
+                        musicList.Add(playlistName);
                         songListBox.ItemsSource = musicList;
                     }
                     else
@@ -275,6 +275,59 @@ namespace myTunes
                 else
                 {
                     songDataGrid.ItemsSource = musicRepo.SongsForPlaylist(selectedPlaylist).DefaultView;
+                }
+            }
+        }
+
+        private void RenamePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPlaylist = songListBox.SelectedItem as String;
+
+            ChangePlaylistNameWindow changePlaylistNameWindow = new();
+            var result = changePlaylistNameWindow.ShowDialog();
+            if (result == true)
+            {
+                string? playlistName = changePlaylistNameWindow.PlaylistName;
+                // asked GitHub Copilot "How to test for empty string along with space characters" (from addPlaylistButton_Click)
+                if (string.IsNullOrWhiteSpace(playlistName))
+                {
+                    MessageBox.Show("Playlist name cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (playlistName != null)
+                {
+
+                    bool nameIsValid = musicRepo.RenamePlaylist(selectedPlaylist, playlistName);
+                    if (nameIsValid)
+                    {
+                        musicList[musicList.IndexOf(selectedPlaylist)] = playlistName;
+                        songListBox.ItemsSource = musicList;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Playlist name already exists", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void DeletePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPlaylist = songListBox.SelectedItem as String;
+            if (selectedPlaylist != null)
+            {
+                if (selectedPlaylist != "All Music")
+                {
+                    MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete" +
+                        $" \"{selectedPlaylist}\"?", "Confirmation",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        musicRepo.DeletePlaylist(selectedPlaylist);
+                        musicList.Remove(selectedPlaylist);
+                        songListBox.ItemsSource = musicList;
+                        songListBox.SelectedIndex = 0;
+                    }
                 }
             }
         }
