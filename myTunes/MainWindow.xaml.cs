@@ -296,6 +296,11 @@ namespace myTunes
             }
         }
 
+        private void songListBox_LayoutUpdated(object sender, EventArgs e)
+        {
+
+        }
+
         private void ReloadDataGrid(string selectedPlaylist)
         {
             if (selectedPlaylist != null)
