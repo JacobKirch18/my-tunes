@@ -47,6 +47,38 @@ namespace myTunes
             songDataGrid.Items.SortDescriptions.Add(sorting);
         }
 
+        private void songListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in songListBox.Items)
+            {
+                // asked ChatGPT "How to make sure a ListBoxItem is not null"
+                ListBoxItem listBoxItem = (ListBoxItem)songListBox.ItemContainerGenerator.ContainerFromItem(item);
+
+                if (listBoxItem != null)
+                {
+                    if (item.ToString() == "All Music")
+                    {
+                        listBoxItem.ContextMenu = null;
+                    }
+                    else
+                    {
+                        ContextMenu contextMenu = new ContextMenu();
+                        MenuItem miRename = new MenuItem();
+                        miRename.Header = "Rename";
+                        miRename.Click += RenamePlaylist_Click;
+                        contextMenu.Items.Add(miRename);
+
+                        MenuItem miDelete = new MenuItem();
+                        miDelete.Header = "Delete";
+                        miDelete.Click += DeletePlaylist_Click;
+                        contextMenu.Items.Add(miDelete);
+
+                        listBoxItem.ContextMenu = contextMenu;
+                    }
+                }
+            }
+        }
+
         private void MainWindow_FormClosed(object? sender, EventArgs e)
         {
             musicRepo.Save();
