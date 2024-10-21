@@ -19,9 +19,21 @@ namespace myTunes
     /// </summary>
     public partial class ChangePlaylistNameWindow : Window
     {
+        public string? PlaylistName { get; private set; }
         public ChangePlaylistNameWindow()
         {
             InitializeComponent();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void changeButton_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistName = playlistNameTextBox.Text;
+            this.DialogResult = true;
         }
     }
 }
