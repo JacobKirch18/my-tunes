@@ -15,7 +15,7 @@ listen to their music, and create playlists.
 
 ## Additional Requirements Implemented
 
-- 
+- Playlist rename/delete
 
 ## Contributions
 ### Ben Jones
