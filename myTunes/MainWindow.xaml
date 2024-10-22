@@ -31,7 +31,7 @@
 
             <Viewbox Stretch="Uniform">
                 <Grid Width="782" Height="409">
-                    <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" Loaded="songListBox_Loaded" LayoutUpdated="songListBox_LayoutUpdated" >
+                    <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" LayoutUpdated="songListBox_LayoutUpdated" >
                         <!-- Original context menu code, change to a function to dynamically create to handle "All Music" -->
                         <!--<ListBox.ContextMenu>
                             <ContextMenu>
