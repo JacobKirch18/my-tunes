@@ -16,12 +16,22 @@ listen to their music, and create playlists.
 ## Additional Requirements Implemented
 
 - Playlist rename/delete
+- Button styling
 
 ## Contributions
 ### Ben Jones
-- \*insert contributions\*
+- DataGrid
+- Rename Playlist Window
+- Add/Delete Songs
+- Context Menus
+- Drag and Drop
 ### Jacob Kirchner
-- \*insert contributions\* 
+- ListBox
+- About Window
+- New Playlist Window
+- Toolbar
+- Rename/Delete Playlist Functionality
+- Button Styling
 
 ## Percentage of Work
 
