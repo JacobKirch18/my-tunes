@@ -6,10 +6,69 @@
         xmlns:local="clr-namespace:myTunes"
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="800" Icon="/images/garf.ico">
+    <Window.Resources>
+        <!-- button styling from: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/button-styles-and-templates?view=netframeworkdesktop-4.8-->
+        <ControlTemplate x:Key="playButtonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="2" CornerRadius="10" BorderBrush="DarkOrange" Background="Transparent">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="Play" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                    To="Black" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                    To="Gray" Duration="0:0:0.2" />
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                    To="LightGray" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="stopButtonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="2" CornerRadius="10" BorderBrush="DarkOrange" Background="Transparent">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="Stop" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                    To="Black" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                    To="Gray" Duration="0:0:0.2" />
+                                <ColorAnimation Storyboard.TargetName="Border" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    To="LightGray" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Window.CommandBindings>
         <CommandBinding Command="Play" Executed="PlayCommand_Executed" CanExecute="PlayCommand_CanExecute" />
         <CommandBinding Command="Stop" Executed="StopCommand_Executed" CanExecute="StopCommand_CanExecute" />
     </Window.CommandBindings>
+    
     <Grid>
         <StackPanel>
             <Viewbox Stretch="Uniform">
@@ -50,8 +109,8 @@
                             <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
-                    <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="310,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />
+                    <Button x:Name="playButton" Template="{StaticResource playButtonTemplate}" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
+                    <Button x:Name="stopButton" Template="{StaticResource stopButtonTemplate}" Content="Stop" HorizontalAlignment="Left" Margin="310,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />
                 </Grid>
             </Viewbox>
         </StackPanel>
