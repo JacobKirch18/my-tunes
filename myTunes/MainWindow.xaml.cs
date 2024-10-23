@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TagLib;
 
 
 namespace myTunes
@@ -27,6 +28,7 @@ namespace myTunes
         System.ComponentModel.SortDescription sorting = new System.ComponentModel.SortDescription("Title", System.ComponentModel.ListSortDirection.Ascending);
 
         private bool isPlaying = false; // For disabling stop button
+        private Point startPos; // For mouse location (drag and drop)
 
         public MainWindow()
         {
@@ -315,29 +317,33 @@ namespace myTunes
         {
             var selectedPlaylist = songListBox.SelectedItem as String;
 
+            if (selectedPlaylist != null)
+            {
+                
             ChangePlaylistNameWindow changePlaylistNameWindow = new();
             var result = changePlaylistNameWindow.ShowDialog();
-            if (result == true)
-            {
-                string? playlistName = changePlaylistNameWindow.PlaylistName;
-                // asked GitHub Copilot "How to test for empty string along with space characters" (from addPlaylistButton_Click)
-                if (string.IsNullOrWhiteSpace(playlistName))
+                if (result == true)
                 {
-                    MessageBox.Show("Playlist name cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                if (playlistName != null)
-                {
-
-                    bool nameIsValid = musicRepo.RenamePlaylist(selectedPlaylist, playlistName);
-                    if (nameIsValid || playlistName == selectedPlaylist)
+                    string? playlistName = changePlaylistNameWindow.PlaylistName;
+                    // asked GitHub Copilot "How to test for empty string along with space characters" (from addPlaylistButton_Click)
+                    if (string.IsNullOrWhiteSpace(playlistName))
                     {
-                        musicList[musicList.IndexOf(selectedPlaylist)] = playlistName;
-                        songListBox.ItemsSource = musicList;
+                        MessageBox.Show("Playlist name cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
-                    else
+                    if (playlistName != null)
                     {
-                        MessageBox.Show("Playlist name already exists", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        bool nameIsValid = musicRepo.RenamePlaylist(selectedPlaylist, playlistName);
+                        if (nameIsValid || playlistName == selectedPlaylist)
+                        {
+                            musicList[musicList.IndexOf(selectedPlaylist)] = playlistName;
+                            songListBox.ItemsSource = musicList;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Playlist name already exists", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
             }
@@ -360,6 +366,61 @@ namespace myTunes
                         songListBox.ItemsSource = musicList;
                         songListBox.SelectedIndex = 0;
                     }
+                }
+            }
+        }
+
+        private void songDataGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point currentPoint = e.GetPosition(null);
+            Vector diff = startPos - currentPoint;
+
+            // Start Drag-Drop if mouse moved far away enough
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Initiate dragging
+                DragDrop.DoDragDrop(songDataGrid, songDataGrid.SelectedItem, DragDropEffects.Move);
+            }
+        }
+
+        private void songDataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Store mouse position
+            startPos = e.GetPosition(null);
+        }
+
+        private void songListBox_DragOver(object sender, DragEventArgs e)
+        {
+            Label? playlist = sender as Label;
+            if (playlist != null)
+            {
+                var playlistName = playlist.Content as string;
+                if (playlistName != "All music")
+                {
+                    e.Effects = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effects = DragDropEffects.None;
+                }
+            }
+        }
+
+        private void songListBox_Drop(object sender, DragEventArgs e)
+        {
+            Label? playlist = sender as Label;
+            if (playlist != null)
+            {
+                var playlistName = playlist.Content as string;
+                var selectedItem = songDataGrid.SelectedItems[0];
+                var data = selectedItem as DataRowView;
+                if (data != null && playlistName != null)
+                {
+                    var dataRow = data.Row;
+                    int songId = Convert.ToInt32(dataRow["Id"]);
+                    musicRepo.AddSongToPlaylist(songId, playlistName);
                 }
             }
         }

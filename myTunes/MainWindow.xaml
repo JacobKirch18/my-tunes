@@ -90,17 +90,20 @@
 
             <Viewbox Stretch="Uniform">
                 <Grid Width="782" Height="409">
-                    <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" LayoutUpdated="songListBox_LayoutUpdated" >
-                        <!-- Original context menu code, change to a function to dynamically create to handle "All Music" -->
-                        <!--<ListBox.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Rename" Click="RenamePlaylist_Click"/>
-                                <MenuItem Header="Delete" Click="DeletePlaylist_Click"/>
-                            </ContextMenu>
-                        </ListBox.ContextMenu>-->
+                    <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" 
+                             Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" 
+                             LayoutUpdated="songListBox_LayoutUpdated">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding}" AllowDrop="True" DragOver="songListBox_DragOver" Drop="songListBox_Drop" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,76" CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Height="323" VerticalAlignment="Bottom" LayoutUpdated="songDataGrid_LayoutUpdated">
+                    <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,76" CanUserAddRows="False" 
+                              IsReadOnly="True" SelectionMode="Single" Height="323" VerticalAlignment="Bottom" 
+                              LayoutUpdated="songDataGrid_LayoutUpdated" MouseMove="songDataGrid_MouseMove" 
+                              PreviewMouseLeftButtonDown="songDataGrid_PreviewMouseLeftButtonDown" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
                             <DataGridTextColumn Binding="{Binding title}" Header="Title" />
