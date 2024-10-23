@@ -92,7 +92,7 @@
                 <Grid Width="782" Height="409">
                     <ListBox x:Name="songListBox" Margin="10,10,0,0" SelectionChanged="songListBox_SelectionChanged" 
                              Height="364" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" 
-                             LayoutUpdated="songListBox_LayoutUpdated">
+                             LayoutUpdated="songListBox_LayoutUpdated" BorderBrush="DarkOrange" BorderThickness="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding}" AllowDrop="True" DragOver="songListBox_DragOver" Drop="songListBox_Drop" />
@@ -103,7 +103,7 @@
                     <DataGrid x:Name="songDataGrid" AutoGenerateColumns="False" Margin="199,0,22,76" CanUserAddRows="False" 
                               IsReadOnly="True" SelectionMode="Single" Height="323" VerticalAlignment="Bottom" 
                               LayoutUpdated="songDataGrid_LayoutUpdated" MouseMove="songDataGrid_MouseMove" 
-                              PreviewMouseLeftButtonDown="songDataGrid_PreviewMouseLeftButtonDown" >
+                              PreviewMouseLeftButtonDown="songDataGrid_PreviewMouseLeftButtonDown" BorderBrush="DarkOrange" BorderThickness="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden" />
                             <DataGridTextColumn Binding="{Binding title}" Header="Title" />
