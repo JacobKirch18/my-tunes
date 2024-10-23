@@ -22,10 +22,10 @@ the program should read the metadata stored in the music file (if available),
 add the song to the data grid, and select/highlight the song (so the user can see it among the list of potentially hundreds of songs).~~  
 
 ~~The user should be able to create a new playlist by selecting a New Playlist button from the toolbar
-and be prompted in a dialog box for a playlist name.~~ Songs can be added to a playlist by dragging them
+and be prompted in a dialog box for a playlist name. Songs can be added to a playlist by dragging them
 from the grid control and dropping them onto the desired playlist in the list box. 
 Each song that is dropped onto a playlist should be added to the end of the playlist.  
-When viewing a playlist, the songs should be presented in order of position.  
+When viewing a playlist, the songs should be presented in order of position.~~  
 
 ~~Songs can be removed from the list of All Music by right-clicking the song and selecting “Remove” from the context menu.
 A dialog box should confirm the removal. A song can be removed from a playlist by viewing the songs in the playlist, 
@@ -48,9 +48,9 @@ and select "Rename" from the context menu.  Then a dialog box should display whi
 Make sure you only change the playlist name if the user supplies a valid playlist (no blanks or identically named playlists). 
 A "Delete" option should also be available from the context menu that deletes the playlist.~~
 
-Use a control template or styles with at least one trigger to alter the look and behavior of the Play and Stop buttons. 
+~~Use a control template or styles with at least one trigger to alter the look and behavior of the Play and Stop buttons. 
 Also add Play and Stop commands (from MediaCommands class) to the buttons so the Play
-and Stop buttons are disabled if no song is selected (for Play) or no song is playing (for Stop).
+and Stop buttons are disabled if no song is selected (for Play) or no song is playing (for Stop).~~
 
 Allow the user to enter a search string. As the string is being entered, the song list should be populated
 with any song whose title, artist, album, or genre match any part of the search string. 
