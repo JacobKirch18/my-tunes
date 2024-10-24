@@ -111,6 +111,7 @@
                             <DataGridTextColumn Binding="{Binding album}" Header="Album" />
                             <DataGridTextColumn Binding="{Binding genre}" Header="Genre" />
                         </DataGrid.Columns>
+
                     </DataGrid>
                     <Button x:Name="playButton" Template="{StaticResource playButtonTemplate}" Content="Play" HorizontalAlignment="Left" Margin="199,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Play" />
                     <Button x:Name="stopButton" Template="{StaticResource stopButtonTemplate}" Content="Stop" HorizontalAlignment="Left" Margin="310,0,0,35" Width="100" Height="25" VerticalAlignment="Bottom" Command="Stop" />

@@ -372,16 +372,20 @@ namespace myTunes
 
         private void songDataGrid_MouseMove(object sender, MouseEventArgs e)
         {
-            Point currentPoint = e.GetPosition(null);
-            Vector diff = startPos - currentPoint;
-
-            // Start Drag-Drop if mouse moved far away enough
-            if (e.LeftButton == MouseButtonState.Pressed &&
-                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            if (songDataGrid.SelectedItem != null)
             {
-                // Initiate dragging
-                DragDrop.DoDragDrop(songDataGrid, songDataGrid.SelectedItem, DragDropEffects.Move);
+                Point currentPoint = e.GetPosition(null);
+                Vector diff = startPos - currentPoint;
+
+                // Start Drag-Drop if mouse moved far away enough
+                if (e.LeftButton == MouseButtonState.Pressed &&
+                    (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                    Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+                {
+
+                    // Initiate dragging
+                    DragDrop.DoDragDrop(songDataGrid, songDataGrid.SelectedItem, DragDropEffects.Move);
+                }
             }
         }
 
