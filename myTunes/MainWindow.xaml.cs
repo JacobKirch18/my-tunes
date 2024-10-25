@@ -384,7 +384,7 @@ namespace myTunes
                 {
 
                     // Initiate dragging
-                    DragDrop.DoDragDrop(songDataGrid, songDataGrid.SelectedItem, DragDropEffects.Move);
+                    DragDrop.DoDragDrop(songDataGrid, songDataGrid.SelectedItem, DragDropEffects.Copy);
                 }
             }
         }
@@ -397,17 +397,18 @@ namespace myTunes
 
         private void songListBox_DragOver(object sender, DragEventArgs e)
         {
+            e.Effects = DragDropEffects.None;
             Label? playlist = sender as Label;
             if (playlist != null)
             {
                 var playlistName = playlist.Content as string;
-                if (playlistName != "All music")
+                if (playlistName == "All Music")
                 {
-                    e.Effects = DragDropEffects.Copy;
+                    e.Effects = DragDropEffects.None; 
                 }
                 else
                 {
-                    e.Effects = DragDropEffects.None;
+                    e.Effects = DragDropEffects.Copy;
                 }
             }
         }
